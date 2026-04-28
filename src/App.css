@@ -1,0 +1,2847 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0a0a0f;
+  color: #c8c8d0;
+  font-family: 'Noto Sans JP', 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
+
+/* ============================================================
+   フォント用途別定義
+   ============================================================ */
+
+/* Montserrat 700: ATK / DEF / SPD / HP / MP / Lv ラベル・数値 */
+.stat-chip,
+.exp-bar-label,
+.exp-bar-num,
+.enc-enemy-stats,
+.sim-member-stats {
+  font-family: 'Montserrat', monospace;
+  font-weight: 700;
+}
+
+/* Montserrat 500: セクションタイトル */
+.detail-section-title,
+.sidebar-section-label,
+.forge-slot-tab,
+.sim-section-title {
+  font-family: 'Montserrat', monospace;
+  font-weight: 500;
+}
+
+/* Noto Sans JP 700: キャラ名 */
+.char-detail-name,
+.exp-member-name,
+.detail-name,
+.slot-member-name,
+.result-member-name,
+.sim-member-name,
+.enc-char-name,
+.forge-item-name {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+}
+
+/* Noto Sans JP 400: 説明文・スキル説明・装備説明 */
+.skill-desc,
+.skill-pool-desc,
+.enc-skill-desc,
+.enc-equip-desc,
+.skill-detail-desc {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ヘッダー */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #12121a;
+  border: 1px solid #2a2a3a;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  color: #d4a017;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.header-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.header-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.header-tab-btn {
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #556688;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+.header-tab-btn:hover  { color: #aaaacc; }
+.header-tab-btn.active { color: #e0e0f0; border-bottom-color: #d4a017; }
+
+.resources {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.save-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.save-btn {
+  padding: 3px 10px;
+  background: #0d0d14;
+  border: 1px solid #2a2a4a;
+  color: #5566aa;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: border-color 0.1s, color 0.1s;
+}
+.save-btn:hover { border-color: #4455aa; color: #8899cc; }
+
+.resource {
+  font-size: 13px;
+}
+
+.resource-value {
+  color: #d4a017;
+  font-variant-numeric: tabular-nums;
+}
+
+/* メインパネル */
+.main-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.panel {
+  background: #12121a;
+  border: 1px solid #2a2a3a;
+  padding: 14px;
+}
+
+.panel-title {
+  color: #6688aa;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2a2a3a;
+}
+
+/* キャラクターカード */
+.character-card {
+  padding: 10px 0;
+  border-bottom: 1px solid #1e1e2e;
+}
+
+.character-card-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.char-panel-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 4px;
+  border: 1px solid #2a3a4a;
+  flex-shrink: 0;
+}
+
+.character-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.character-card:last-child {
+  border-bottom: none;
+}
+
+.character-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.character-name {
+  color: #e0e0f0;
+  font-weight: bold;
+}
+
+.character-class {
+  font-size: 11px;
+  color: #6688aa;
+}
+
+.character-level {
+  font-size: 11px;
+  color: #88aacc;
+  margin-left: auto;
+}
+
+.hp-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.hp-text {
+  font-size: 11px;
+  color: #6688aa;
+  white-space: nowrap;
+}
+
+.hp-bar {
+  flex: 1;
+  height: 4px;
+  background: #2a2a3a;
+  border-radius: 2px;
+}
+
+.hp-fill {
+  height: 100%;
+  background: #3a8a3a;
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+.mp-fill {
+  height: 100%;
+  background: #3a5aaa;
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+.stat-row {
+  font-size: 11px;
+  color: #6688aa;
+  margin-bottom: 4px;
+}
+
+.stat-row span {
+  color: #9999bb;
+  margin-right: 12px;
+}
+
+.party-stance-equip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+  align-items: center;
+}
+.party-stance-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border: 1px solid #d4a017;
+  color: #d4a017;
+  border-radius: 2px;
+}
+.party-equip-item {
+  font-size: 10px;
+  color: #8899bb;
+}
+.party-equip-item + .party-equip-item::before {
+  content: ' / ';
+  color: #445566;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.skill-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border: 1px solid #2a3a5a;
+  color: #5577aa;
+  border-radius: 2px;
+}
+
+.skill-tag.attack  { border-color: #5a2a2a; color: #cc7777; }
+.skill-tag.heal    { border-color: #2a5a2a; color: #77cc77; }
+.skill-tag.buff    { border-color: #5a4a2a; color: #ccaa55; }
+.skill-tag.debuff  { border-color: #4a2a5a; color: #aa77cc; }
+
+/* ダンジョンカード */
+.dungeon-card {
+  padding: 10px;
+  border: 1px solid #2a2a3a;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dungeon-card:hover:not(.disabled) {
+  border-color: #4a4a6a;
+  background: #1a1a28;
+}
+
+.dungeon-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dungeon-name {
+  color: #d4a017;
+  margin-bottom: 4px;
+}
+
+.dungeon-meta {
+  font-size: 11px;
+  color: #6688aa;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-start {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px;
+  background: #1a3a1a;
+  border: 1px solid #3a6a3a;
+  color: #77cc77;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s;
+}
+
+.btn-start:hover {
+  background: #2a4a2a;
+}
+
+/* 探索パネル */
+.expedition-panel {
+  background: #12121a;
+  border: 1px solid #3a6a3a;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.expedition-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 戦闘シーン */
+.combat-scene {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.combat-scene-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 55%;
+}
+
+.combat-characters {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 2px;
+  padding-left: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.combat-enemies {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 2px;
+  padding-right: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.combat-char-portrait,
+.combat-enemy-portrait {
+  flex: 0 0 auto;
+  width: 19%;          /* 5人×19% + gap = ~99% に収まる */
+  max-width: 96px;
+  height: 200px;
+  object-fit: contain;
+  filter:
+    drop-shadow(1px  0   0 white)
+    drop-shadow(-1px 0   0 white)
+    drop-shadow(0    1px 0 white)
+    drop-shadow(0   -1px 0 white)
+    drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+  transition: opacity 0.4s;
+}
+
+.combat-char-portrait.dead,
+.combat-enemy-portrait.dead {
+  opacity: 0.35;
+  filter:
+    drop-shadow(1px  0   0 white)
+    drop-shadow(-1px 0   0 white)
+    drop-shadow(0    1px 0 white)
+    drop-shadow(0   -1px 0 white)
+    grayscale(0.5);
+}
+
+.expedition-panel > *:not(.expedition-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+.member-char-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid #2a3a4a;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.member-enemy-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #3a2a2a;
+  flex-shrink: 0;
+}
+
+.expedition-title {
+  color: #77cc77;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2a3a2a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expedition-complete-title {
+  border-color: #6a5a2a;
+  color: #d4a017;
+}
+
+.floor-info {
+  font-size: 13px;
+  color: #c8c8d0;
+  margin-bottom: 6px;
+}
+
+.floor-info strong {
+  color: #77cc77;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #1e1e2e;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #4a8a4a;
+  border-radius: 4px;
+  transition: width 1s linear;
+}
+
+.progress-fill.complete {
+  background: #8a8a2a;
+}
+
+.floor-progress-label {
+  font-size: 11px;
+  color: #6688aa;
+  margin-bottom: 4px;
+}
+
+.floor-progress-bar {
+  height: 4px;
+  margin-bottom: 12px;
+}
+
+.floor-progress-fill {
+  background: #2a6a4a;
+}
+
+.time-info {
+  font-size: 11px;
+  color: #6688aa;
+  margin-bottom: 12px;
+}
+
+.btn-finish {
+  padding: 6px 14px;
+  background: #3a2a1a;
+  border: 1px solid #8a6a3a;
+  color: #ccaa55;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-finish:hover {
+  background: #4a3a2a;
+}
+
+.log-list {
+  margin-top: 10px;
+  margin-bottom: 14px;
+  max-height: 140px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  border: 1px solid #1e2a1e;
+  background: #090d09;
+  padding: 6px 8px;
+}
+
+.log-entry {
+  font-size: 11px;
+  color: #556655;
+  padding: 2px 0;
+}
+
+.log-entry.system       { color: #4a6a7a; }
+.log-entry.ally_attack  { color: #7799cc; }
+.log-entry.ally_attack::before  { content: '▷ '; opacity: 0.7; }
+.log-entry.ally_heal    { color: #55aa77; }
+.log-entry.ally_buff    { color: #aaaa55; }
+.log-entry.enemy_attack { color: #cc6666; }
+.log-entry.enemy_attack::before { content: '▶ '; opacity: 0.7; }
+.log-entry.enemy_heal   { color: #cc8844; }
+.log-entry.enemy_buff   { color: #aa55aa; }
+.log-entry.reward       { color: #d4a017; }
+.log-entry.event        { color: #4a8aaa; }
+
+/* クラスバッジ */
+.class-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+/* スターター職 */
+.class-badge.warrior  { background: #2a1a1a; color: #e87070; border: 1px solid #5a2020; }
+.class-badge.mage     { background: #1a1a2e; color: #7888ee; border: 1px solid #2a2a5a; }
+.class-badge.rogue    { background: #1a2a1a; color: #60cc60; border: 1px solid #2a5a2a; }
+.class-badge.priest   { background: #2a2614; color: #e8d060; border: 1px solid #5a4a18; }
+.class-badge.ranger   { background: #1a2618; color: #70c880; border: 1px solid #284a28; }
+/* ゴブリン洞窟解放 */
+.class-badge.knight   { background: #1e1e2a; color: #a0a8e0; border: 1px solid #38385a; }
+.class-badge.wizard   { background: #180e2a; color: #c070e8; border: 1px solid #3a1a5a; }
+.class-badge.assassin { background: #1a1a1a; color: #88cc88; border: 1px solid #2a4a2a; }
+.class-badge.paladin  { background: #22201a; color: #f0d070; border: 1px solid #504020; }
+.class-badge.bard     { background: #1e1428; color: #e070c0; border: 1px solid #4a1a4a; }
+/* 古代遺跡解放 */
+.class-badge.berserker  { background: #2a1210; color: #f06040; border: 1px solid #5a2010; }
+.class-badge.witch      { background: #1a1028; color: #b860e0; border: 1px solid #401060; }
+.class-badge.monk       { background: #201a10; color: #d0a040; border: 1px solid #4a3010; }
+.class-badge.druid      { background: #102218; color: #60d090; border: 1px solid #1a4a28; }
+.class-badge.dancer     { background: #28101e; color: #f080a0; border: 1px solid #501020; }
+/* 暗黒の森解放 */
+.class-badge.dark_knight  { background: #1a1028; color: #9060d0; border: 1px solid #30106a; }
+.class-badge.necromancer  { background: #101818; color: #50c0a0; border: 1px solid #105038; }
+.class-badge.sage         { background: #1e1e28; color: #b0d0f8; border: 1px solid #304060; }
+.class-badge.summoner     { background: #102028; color: #40c0e0; border: 1px solid #105060; }
+.class-badge.enchanter    { background: #201828; color: #d090e0; border: 1px solid #4a2060; }
+
+/* ============================================================
+   拠点画面（編成・マイパーティ）
+   ============================================================ */
+.base-screen {
+  background: #12121a;
+  border: 1px solid #2a2a3a;
+  margin-bottom: 16px;
+}
+
+.base-tabs {
+  display: flex;
+  border-bottom: 1px solid #2a2a3a;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-right: 1px solid #2a2a3a;
+  color: #6688aa;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab-btn:hover { background: #1a1a28; color: #aaaacc; }
+.tab-btn.active { background: #1a1a2a; color: #e0e0f0; border-bottom: 2px solid #d4a017; }
+
+/* 施設バナー */
+.facility-banner {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  border: 1px solid #2a2a3a;
+}
+.facility-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  display: block;
+}
+.facility-banner.forge img {
+  object-position: center 80%;
+}
+
+/* 編成タブ */
+.formation-body {
+  display: grid;
+  grid-template-columns: 196px 1fr;
+  align-items: start;
+  position: relative;
+}
+
+/* サイドバー */
+.char-sidebar {
+  border-right: 1px solid #2a2a3a;
+  padding: 8px 0;
+}
+
+.sidebar-section-label {
+  padding: 6px 12px 4px;
+  font-size: 10px;
+  color: #444466;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.char-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.char-list-item:hover    { background: #1a1a28; }
+.char-list-item.selected { background: #1e1e30; }
+.char-list-item.in-party { border-left: 2px solid #3a5a3a; }
+
+.char-list-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid #2a3a4a;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.char-list-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.char-list-name  { color: #c8c8d0; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.char-list-meta  { display: flex; align-items: center; gap: 4px; }
+.char-list-level { color: #6688aa; font-size: 10px; flex-shrink: 0; }
+
+/* 右側：キャラ詳細パネル */
+.char-detail-panel {
+  overflow-y: auto;
+  position: relative;
+}
+
+.no-char-hint {
+  padding: 40px 20px;
+  color: #444466;
+  font-size: 12px;
+  text-align: center;
+}
+
+.char-detail {
+  padding: 14px 16px;
+  position: relative;
+}
+
+/* キャラバストアップ表示 */
+.char-portrait-bg {
+  border-radius: 6px;
+  border: 1px solid #2a3a4a;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* ヘッダー */
+.char-detail-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.char-detail-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.char-detail-portrait {
+  display: none; /* CharPortraitコンポーネントに移行済み */
+}
+
+.char-detail-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.char-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.char-detail-header .toggle-party-btn {
+  display: none;
+}
+
+.party-btn-corner {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 1;
+}
+
+.char-detail-name  { color: #e0e0f0; font-size: 15px; font-weight: bold; }
+.char-detail-level { color: #6688aa; font-size: 12px; }
+
+/* ステータス */
+.char-detail-stats { margin-bottom: 10px; }
+
+.stat-chips {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.stat-chip {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: #1a1a28;
+  border: 1px solid #2a2a3a;
+  color: #aaaacc;
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid #1e1e2e;
+  margin: 12px 0;
+}
+
+/* セクション共通 */
+.detail-section { margin-bottom: 4px; }
+.detail-section-title {
+  font-size: 10px;
+  color: #6688aa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+/* 装備フィルター */
+.equip-slot-filter { display: flex; gap: 4px; margin-bottom: 8px; }
+.equip-filter-btn {
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  border: 1px solid #2a2a3a;
+  background: #0d0d14;
+  color: #6688aa;
+}
+.equip-filter-btn.active { border-color: #4a4a7a; background: #1a1a30; color: #c8c8d0; }
+
+/* 装備リスト（統一クリック式） */
+.equip-stats { color: #6688aa; font-size: 11px; }
+.equip-empty-slot { color: #444466; font-size: 12px; padding: 8px 10px; border: 1px dashed #1e1e2e; }
+
+.equip-list { display: flex; flex-direction: column; gap: 3px; }
+
+.equip-row {
+  border: 1px solid #2a2a3a;
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.equip-row:hover { background: #1a1a28; }
+.equip-row.own-equipped { border-color: #3a6a3a; background: #0f1a0f; }
+.equip-row.own-equipped:hover { background: #0f1f0f; }
+
+.equip-row-main { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+.equip-row-icon { border-radius: 3px; flex-shrink: 0; }
+.equip-row-icon.equipped { border-color: #4a9a4a !important; box-shadow: 0 0 4px #3a7a3a; }
+.equip-row-name { color: #c8c8d0; font-size: 12px; flex: 1; }
+.equip-row-sub { font-size: 10px; padding-left: 0; }
+.equip-slot-icon { vertical-align: middle; margin-right: 2px; }
+.equip-equipped-label { color: #77cc77; }
+.equip-wearer { color: #cc9944; }
+.equip-hint { color: #444466; }
+
+/* スキルスロット */
+.skill-slots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.skill-slot {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #2a2a3a;
+  min-height: 52px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+.skill-slot.filled { border-color: #3a4a5a; background: #0f141a; }
+.skill-slot.empty  { border-style: dashed; border-color: #1e1e2e; justify-content: center; align-items: center; }
+
+.skill-slot-empty { color: #444466; font-size: 11px; }
+
+/* スキル入れ替えダイアログ */
+.swap-incoming-skill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #0d1a0d;
+  border: 1px solid #2a4a2a;
+  margin: 10px 0 4px;
+}
+.swap-incoming-name { color: #aaddaa; font-size: 13px; font-weight: bold; }
+
+.skill-slot-name { color: #c8c8d0; font-size: 12px; }
+.skill-mp-cost { font-size: 10px; color: #5577bb; white-space: nowrap; }
+.elem-badge { font-size: 10px; padding: 1px 5px; border-radius: 2px; font-weight: bold; white-space: nowrap; }
+.elem-fire    { background: #3a1a00; border: 1px solid #cc5500; color: #ff8844; }
+.elem-ice     { background: #001a3a; border: 1px solid #2266cc; color: #66aaff; }
+.elem-thunder { background: #2a2a00; border: 1px solid #aaaa00; color: #ffff44; }
+.elem-light   { background: #2a2a10; border: 1px solid #aaaa44; color: #ffff99; }
+.elem-dark    { background: #1a0a2a; border: 1px solid #6633aa; color: #cc88ff; }
+.status-badge { font-size: 10px; padding: 1px 5px; border-radius: 2px; font-weight: bold; white-space: nowrap; }
+.status-poison   { background: #0a2a0a; border: 1px solid #33aa33; color: #88ff88; }
+.status-stagger  { background: #2a1a00; border: 1px solid #cc8800; color: #ffcc44; }
+.status-bind     { background: #0a1a2a; border: 1px solid #2266aa; color: #66aaff; }
+.status-seal_atk { background: #2a0a0a; border: 1px solid #aa3333; color: #ff8888; }
+.status-seal_def { background: #1a0a1a; border: 1px solid #884488; color: #dd88dd; }
+
+/* パーティバフ・デバフ表示 */
+.exp-party-effects {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin: 2px 0 3px;
+}
+.buff-badge {
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-weight: bold;
+  white-space: nowrap;
+  background: #0a1a2a;
+  border: 1px solid #2266cc;
+  color: #66ccff;
+}
+.effect-turns {
+  font-size: 9px;
+  margin-left: 2px;
+  opacity: 0.7;
+}
+.skill-slot-empty { color: #333355; font-size: 11px; }
+.skill-slot-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: none;
+  border: none;
+  color: #664444;
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 2px;
+}
+.skill-slot-remove:hover { color: #cc7777; }
+
+/* スキルプール */
+.skill-pool { margin-top: 4px; }
+.skill-pool-label { font-size: 10px; color: #444466; margin-bottom: 6px; }
+
+.skill-pool-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid #2a2a3a;
+  margin-bottom: 3px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.skill-pool-item:hover         { background: #1a1a28; }
+.skill-pool-item.active        { border-color: #3a5a7a; background: #0f141a; }
+
+.skill-pool-name  { color: #c8c8d0; font-size: 12px; }
+.skill-pool-desc  { color: #666677; font-size: 11px; flex: 1; }
+.skill-pool-check { color: #77cc77; font-size: 12px; margin-left: auto; }
+
+/* 装備奪取確認ダイアログ */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.confirm-dialog {
+  background: #12121a;
+  border: 1px solid #4a4a7a;
+  padding: 20px 24px;
+  max-width: 300px;
+  text-align: center;
+}
+
+/* メンバー交代ダイアログ */
+.swap-dialog { max-width: 340px; }
+
+.swap-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.swap-member-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #1a1a28;
+  border: 1px solid #2a2a3a;
+  color: #c8c8d0;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: left;
+  transition: background 0.1s;
+}
+.swap-member-btn:hover { background: #252538; border-color: #4a4a6a; }
+
+.swap-member-name { flex: 1; color: #e0e0f0; }
+
+.confirm-message {
+  color: #c8c8d0;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.confirm-message strong { color: #e0e0f0; }
+
+.confirm-actions { display: flex; gap: 8px; justify-content: center; }
+.confirm-ok {
+  padding: 7px 20px;
+  background: #1a3a1a;
+  border: 1px solid #3a6a3a;
+  color: #77cc77;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.confirm-drop-list-btn {
+  padding: 7px 20px;
+  background: #1a1a2a;
+  border: 1px solid #3a3a6a;
+  color: #8888cc;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.confirm-cancel {
+  padding: 7px 20px;
+  background: #2a1a1a;
+  border: 1px solid #6a3a3a;
+  color: #cc7777;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.detail-name {
+  color: #e0e0f0;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.detail-level {
+  color: #6688aa;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.toggle-party-btn {
+  margin-top: 12px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid;
+  transition: background 0.15s;
+}
+
+.toggle-party-btn.add    { background: #1a3a1a; border-color: #3a6a3a; color: #77cc77; }
+.toggle-party-btn.add:hover { background: #2a4a2a; }
+.toggle-party-btn.remove { background: #3a1a1a; border-color: #6a3a3a; color: #cc7777; }
+.toggle-party-btn.remove:hover { background: #4a2a2a; }
+.toggle-party-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* 装備 */
+.equip-slot { margin-bottom: 14px; }
+.equip-slot-label { color: #6688aa; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+
+.equip-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid #2a2a3a;
+  font-size: 12px;
+}
+
+.equip-item.equipped { border-color: #3a5a3a; color: #c8c8d0; }
+.equip-item.empty    { color: #444466; }
+.equip-bonus { color: #6688aa; font-size: 11px; margin-left: auto; }
+
+.equip-remove-btn {
+  padding: 2px 8px;
+  background: #3a1a1a;
+  border: 1px solid #6a3a3a;
+  color: #cc7777;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.equip-candidates { margin-top: 4px; }
+
+.equip-candidate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #aaaacc;
+  border: 1px solid #2a2a3a;
+  border-top: none;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.equip-candidate:hover { background: #1a1a28; }
+
+/* スキル */
+.skill-detail { margin-bottom: 12px; padding: 8px; border: 1px solid #2a2a3a; }
+.skill-detail-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.skill-detail-name { color: #e0e0f0; font-size: 13px; }
+.skill-cd { color: #6688aa; font-size: 11px; margin-left: auto; }
+.skill-desc { color: #888899; font-size: 11px; }
+.no-skills { color: #444466; font-size: 12px; }
+
+/* ============================================================ */
+/* マイパーティ */
+/* ============================================================ */
+.my-party-panel { padding: 4px 0; }
+
+.my-party-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.party-slot {
+  border: 1px solid #2a2a3a;
+  padding: 12px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.party-slot.filled { border-color: #3a3a5a; }
+.party-slot.empty { border-color: #1e1e2e; justify-content: center; }
+
+.party-slot-header { display: flex; justify-content: space-between; align-items: center; }
+.slot-number { color: #444466; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.slot-name { color: #c8c8d0; font-size: 13px; font-weight: bold; }
+.slot-active-badge { font-size: 10px; color: #77cc77; }
+
+.slot-member-list { display: flex; flex-direction: column; gap: 3px; margin: 4px 0; }
+.slot-member-row { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.slot-member-name { color: #c8c8d0; flex: 1; }
+.slot-member-level { color: #6688aa; font-size: 10px; }
+
+.slot-members { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* 保存フォーム */
+.save-form { display: flex; flex-direction: column; gap: 8px; }
+.save-form-members { display: flex; flex-wrap: wrap; gap: 4px; font-size: 11px; }
+
+/* マイパーティヒント */
+.my-party-hint { padding: 10px 0 4px; font-size: 11px; color: #333355; text-align: center; }
+
+/* 装備移動警告 */
+.confirm-title { color: #cc9944; font-size: 13px; font-weight: bold; margin-bottom: 10px; }
+.conflict-list { margin-bottom: 10px; text-align: left; }
+.conflict-item { font-size: 12px; color: #c8c8d0; padding: 3px 0; }
+.confirm-sub { color: #888899; font-size: 12px; margin-bottom: 12px; }
+
+.slot-actions { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+.slot-btn { padding: 4px 8px; font-family: inherit; font-size: 11px; cursor: pointer; border: 1px solid; }
+.slot-btn.edit     { background: #1a2a3a; border-color: #3a5a7a; color: #7ab0d4; }
+.slot-btn.activate { background: #1a3a1a; border-color: #3a6a3a; color: #77cc77; }
+.slot-btn.clear    { background: #2a1a1a; border-color: #6a3a3a; color: #cc7777; }
+
+.slot-new-btn {
+  padding: 24px 0;
+  background: none;
+  border: 1px dashed #2a2a3a;
+  color: #444466;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  width: 100%;
+}
+.slot-new-btn:hover { border-color: #4a4a6a; color: #7788cc; }
+
+/* エディタ */
+.party-editor { padding: 4px 0; }
+.editor-title { font-size: 14px; color: #d4a017; margin-bottom: 14px; }
+.editor-section { margin-bottom: 16px; }
+.editor-section-label { font-size: 10px; color: #6688aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+.name-input {
+  width: 100%;
+  padding: 6px 10px;
+  background: #0d0d14;
+  border: 1px solid #2a2a3a;
+  color: #e0e0f0;
+  font-family: inherit;
+  font-size: 13px;
+}
+.name-input:focus { outline: none; border-color: #4a4a7a; }
+
+.member-picker { display: flex; flex-wrap: wrap; gap: 6px; }
+.member-pick-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid #2a2a3a;
+  background: #0d0d14;
+  color: #888899;
+}
+.member-pick-btn.selected { border-color: #3a5a7a; background: #1a2a3a; color: #c8c8d0; }
+.member-pick-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.editor-chars { display: flex; flex-direction: column; gap: 10px; }
+.editor-char { border: 1px solid #2a2a3a; padding: 10px; }
+.editor-char-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.editor-char-section-label { font-size: 10px; color: #6688aa; margin-top: 10px; margin-bottom: 4px; }
+
+.editor-equip-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.editor-equip-slot-label { color: #6688aa; font-size: 11px; width: 60px; flex-shrink: 0; }
+.editor-equip-select {
+  flex: 1;
+  padding: 4px 6px;
+  background: #0d0d14;
+  border: 1px solid #2a2a3a;
+  color: #c8c8d0;
+  font-family: inherit;
+  font-size: 11px;
+}
+.editor-equip-select:focus { outline: none; border-color: #4a4a7a; }
+
+.skill-check-list { display: flex; flex-direction: column; gap: 5px; }
+.skill-check-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #aaaacc;
+  cursor: pointer;
+}
+.skill-check-item input { cursor: pointer; accent-color: #7ab0d4; }
+
+
+.editor-actions { display: flex; gap: 8px; margin-top: 16px; padding-top: 12px; border-top: 1px solid #2a2a3a; }
+.editor-save-btn {
+  padding: 8px 24px;
+  background: #1a3a1a;
+  border: 1px solid #3a6a3a;
+  color: #77cc77;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.editor-save-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.editor-cancel-btn {
+  padding: 8px 24px;
+  background: #2a1a1a;
+  border: 1px solid #6a3a3a;
+  color: #cc7777;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   スタンス
+   ============================================================ */
+.stance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.stance-btn {
+  padding: 5px 4px;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  border: 1px solid #2a2a3a;
+  background: #0d0d14;
+  color: #6688aa;
+  text-align: center;
+  transition: background 0.1s, border-color 0.1s;
+}
+.stance-btn:hover  { background: #1a1a28; border-color: #4a4a6a; color: #aaaacc; }
+.stance-btn.active { background: #1a1a30; border-color: #d4a017; color: #d4a017; }
+.stance-desc {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #8888aa;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   探索ステータス（新UI）
+   ============================================================ */
+.time-limit-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.time-limit-label { font-size: 11px; color: #6688aa; white-space: nowrap; }
+.time-limit-row .progress-bar { flex: 1; margin-bottom: 0; }
+.time-fill { background: #8a4a2a; }
+
+.exp-party-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.exp-member-row {
+  border: 1px solid #2a2a3a;
+  padding: 8px 10px;
+}
+.exp-member-row.dead { opacity: 0.4; }
+
+.exp-member-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.exp-member-name  { color: #c8c8d0; font-size: 12px; flex: 1; }
+.exp-member-stance { font-size: 10px; color: #555577; border: 1px solid #2a2a3a; padding: 1px 5px; }
+
+.exp-member-bars { display: flex; flex-direction: column; gap: 3px; margin-bottom: 6px; }
+
+.exp-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.exp-bar-label { font-size: 10px; color: #6688aa; width: 18px; }
+.exp-bar-num   { font-size: 10px; color: #6688aa; white-space: nowrap; }
+
+.mini-bar-wrap {
+  flex: 1;
+  height: 5px;
+  background: #1e1e2e;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.mini-bar { height: 100%; border-radius: 2px; transition: width 0.5s; }
+.hp-bar-fill    { background: #3a8a3a; }
+.mp-bar-fill    { background: #3a5a9a; }
+.enemy-bar-fill { background: #8a3a3a; }
+
+.exp-skill-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.skill-btn {
+  padding: 3px 8px;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+  border: 1px solid #2a2a3a;
+  background: #0d0d14;
+  color: #aaaacc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 60px;
+}
+.skill-btn:hover:not(.disabled) { background: #1a1a28; }
+.skill-btn.disabled { opacity: 0.4; cursor: not-allowed; }
+.skill-btn.attack  { border-color: #5a2a2a; }
+.skill-btn.heal    { border-color: #2a5a2a; }
+.skill-btn.buff    { border-color: #5a4a2a; }
+.skill-btn.debuff  { border-color: #4a2a5a; }
+.skill-btn-name { color: #c8c8d0; font-size: 10px; }
+.skill-btn-cd   { color: #cc7777; font-size: 9px; }
+.skill-btn-mp   { color: #5577aa; font-size: 9px; }
+
+.exp-member-equips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+.exp-equip-badge {
+  font-size: 10px;
+  color: #9999bb;
+  border: 1px solid #2a2a4a;
+  padding: 1px 5px;
+  background: #0d0d1a;
+  white-space: nowrap;
+}
+.exp-equip-slot {
+  color: #5577aa;
+  margin-right: 3px;
+}
+
+.exp-member-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+.exp-skill-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border: 1px solid #333355;
+  background: #0d0d1a;
+  color: #aaaacc;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.exp-skill-badge.on-cd { opacity: 0.45; }
+.exp-skill-cd { color: #886644; font-size: 9px; }
+.exp-skill-badge.skill-type-attack  { border-color: #5a2a2a; color: #cc8888; }
+.exp-skill-badge.skill-type-heal    { border-color: #2a5a2a; color: #77aa77; }
+.exp-skill-badge.skill-type-buff    { border-color: #5a4a2a; color: #aaaa66; }
+.exp-skill-badge.skill-type-debuff  { border-color: #4a2a5a; color: #aa77cc; }
+
+.exp-enemy-section {
+  padding: 0;
+}
+
+.exp-enemy-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.1s;
+}
+.exp-enemy-row:hover   { background: #1a1a28; }
+.exp-enemy-row.targeted { border-color: #8a4a2a; background: #1a0f0f; }
+
+.exp-enemy-name { color: #cc8888; font-size: 11px; white-space: nowrap; min-width: 80px; }
+.exp-enemy-hp   { font-size: 10px; color: #6688aa; white-space: nowrap; }
+.target-mark    { color: #cc7744; font-size: 10px; }
+
+.exp-actions { margin-bottom: 10px; }
+.retreat-btn {
+  padding: 6px 16px;
+  background: #2a1a1a;
+  border: 1px solid #6a3a3a;
+  color: #cc7777;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.retreat-btn:hover { background: #3a2a2a; }
+
+.exp-rewards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #0f0f18;
+  border: 1px solid #2a2a3a;
+  margin-bottom: 10px;
+}
+.reward-label { font-size: 10px; color: #444466; }
+.reward-gold  { font-size: 11px; color: #d4a017; }
+.reward-item  { font-size: 11px; color: #77aacc; border: 1px solid #2a3a4a; padding: 1px 5px; }
+
+.dead-enemy { opacity: 0.35; cursor: default; }
+
+/* 探索中スタンス変更 */
+.exp-stance-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  align-items: flex-start;
+}
+.exp-stance-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.exp-stance-btn {
+  padding: 2px 7px;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+  border: 1px solid #2a2a3a;
+  background: #0d0d14;
+  color: #555577;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+  position: relative;
+}
+.exp-stance-btn:hover  { background: #1a1a28; border-color: #4a4a6a; color: #aaaacc; }
+.exp-stance-btn.active { background: #1a1a30; border-color: #d4a017; color: #d4a017; }
+.exp-stance-btn.cooling { opacity: 0.4; cursor: not-allowed; }
+.exp-stance-btn.cooling:hover { background: #0d0d14; border-color: #2a2a3a; color: #555577; }
+.stance-cd {
+  font-size: 9px;
+  margin-left: 3px;
+  color: #886644;
+}
+.stance-mods {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stance-mod {
+  font-size: 9px;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+.stance-mod.up       { color: #88cc88; }
+.stance-mod.up.big   { color: #44ee44; font-weight: bold; }
+.stance-mod.down     { color: #cc8888; }
+.stance-mod.down.big { color: #ee4444; font-weight: bold; }
+
+/* 探索中2カラムレイアウト */
+.expedition-columns {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.expedition-left  { flex: 1; min-width: 0; }
+.expedition-right { flex: 1; min-width: 0; }
+
+/* 敵カード（右カラム・パーティ行と同スタイル） */
+.exp-enemy-card {
+  padding: 8px 10px;
+  border: 1px solid #2a2a3a;
+  margin-bottom: 6px;
+  margin-bottom: 0;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.exp-enemy-card:hover         { background: #14141e; }
+.exp-enemy-card.targeted      { border-color: #8a4a2a; background: #1a0f0f; }
+.exp-enemy-card.dead-enemy    { opacity: 0.35; cursor: default; }
+
+.exp-enemy-nameline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+}
+.exp-enemy-hprow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.exp-enemy-hp { font-size: 10px; color: #6688aa; white-space: nowrap; }
+.exp-enemy-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+/* イベントフロア表示 */
+.exp-event-notice {
+  padding: 20px 10px;
+  font-size: 13px;
+  color: #77aacc;
+  border: 1px solid #2a3a4a;
+  text-align: center;
+}
+
+/* ============================================================
+   探索結果モーダル
+   ============================================================ */
+.result-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.result-dialog {
+  background: #12121a;
+  border: 1px solid #4a4a7a;
+  padding: 24px 28px;
+  min-width: 320px;
+  max-width: 420px;
+  width: 90%;
+}
+
+.result-status {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+}
+.result-complete  { color: #d4a017; }
+.result-retreated { color: #77aacc; }
+.result-failed    { color: #cc7777; }
+.result-timeout   { color: #aa7755; }
+
+.result-dungeon {
+  text-align: center;
+  font-size: 12px;
+  color: #6688aa;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2a2a3a;
+}
+
+.result-section { margin-bottom: 14px; }
+.result-section-title {
+  font-size: 10px;
+  color: #444466;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 12px;
+  border-bottom: 1px solid #1a1a28;
+}
+.result-key     { color: #6688aa; }
+.result-val     { color: #c8c8d0; }
+.result-val.gold    { color: #d4a017; }
+.result-val.penalty { color: #cc7777; }
+.result-val.item    { color: #77aacc; }
+.result-empty   { font-size: 12px; color: #333355; padding: 4px 0; }
+
+.result-member-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #1a1a28;
+  font-size: 12px;
+}
+.result-member-name { color: #c8c8d0; flex: 1; }
+.result-member-exp  { color: #6688aa; font-size: 11px; }
+.result-level       { color: #6688aa; font-size: 11px; }
+.result-levelup     { color: #d4a017; font-size: 11px; }
+
+.result-close-btn {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 10px;
+  background: #1a1a2a;
+  border: 1px solid #4a4a7a;
+  color: #aaaacc;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s;
+}
+.result-close-btn:hover { background: #2a2a3a; }
+
+/* マイパーティ詳細 */
+.slot-member-detail {
+  border-bottom: 1px solid #1e1e2e;
+  padding: 5px 0;
+}
+.slot-member-detail:last-child { border-bottom: none; }
+.slot-member-stance { font-size: 9px; color: #555577; border: 1px solid #2a2a3a; padding: 1px 4px; margin-left: auto; }
+.slot-member-equip  { font-size: 10px; color: #5577aa; padding: 2px 0 0 2px; }
+.slot-member-skills { font-size: 10px; color: #557755; padding: 1px 0 0 2px; }
+
+/* ===== 鍛冶パネル ===== */
+.forge-panel { display: flex; flex-direction: column; gap: 6px; padding: 4px 0; position: relative; }
+.forge-empty { color: #445566; text-align: center; padding: 20px; }
+.forge-hint  { font-size: 10px; color: #886644; margin-bottom: 4px; }
+
+.forge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  background: #12121a;
+  border: 1px solid #2a2a3a;
+  gap: 6px;
+}
+.forge-row.forge-broken { opacity: 0.4; border-color: #552222; }
+
+.forge-item-info { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+.forge-item-icon { flex-shrink: 0; }
+.forge-slot-badge { font-size: 9px; color: #6688aa; border: 1px solid #2a4a6a; padding: 1px 4px; white-space: nowrap; }
+.forge-item-name  { font-size: 12px; color: #c8c8d0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.forge-equipped-badge { font-size: 10px; color: #88aa66; border: 1px solid #2a5a2a; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+.forge-item-stats { font-size: 10px; color: #557799; white-space: nowrap; }
+
+.forge-action { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.forge-rate   { font-size: 11px; color: #88aa66; white-space: nowrap; }
+.forge-cost   { font-size: 11px; color: #aa9944; white-space: nowrap; }
+.forge-max    { font-size: 11px; color: #aa7700; font-weight: bold; }
+.forge-btn {
+  padding: 3px 10px; font-size: 11px; font-family: inherit;
+  background: #1a2a1a; border: 1px solid #3a6a3a; color: #88cc88; cursor: pointer;
+}
+.forge-btn:hover:not(:disabled) { background: #2a3a2a; }
+.forge-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.forge-result { font-size: 11px; font-weight: bold; min-width: 56px; text-align: center; }
+.forge-result-success { color: #66cc66; }
+.forge-result-fail    { color: #cc6644; }
+.forge-result-broken  { color: #cc2222; }
+.forge-result-no_gold { color: #886644; }
+.forge-result-sold    { color: #aacc44; }
+
+.forge-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; margin-bottom: 4px;
+}
+.forge-cap {
+  font-size: 11px; white-space: nowrap;
+  padding: 3px 10px;
+  border: 1px solid #2a3a4a;
+  background: #0d141c;
+  color: #99bbcc;
+}
+.forge-cap.forge-cap-warn { color: #cc8844; border-color: #4a3a1a; background: #1a1208; }
+.forge-cap.forge-cap-full { color: #cc4444; font-weight: bold; border-color: #4a1a1a; background: #180808; }
+
+.forge-slot-tabs {
+  display: flex; align-items: center; gap: 4px; margin: 0 10px 6px; flex-wrap: wrap;
+}
+.forge-slot-tab {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 14px; font-family: inherit; font-size: 12px; cursor: pointer;
+  border: 1px solid #2a2a3a; background: #0d0d14; color: #6688aa;
+}
+.forge-slot-tab.active { border-color: #4a5a8a; background: #141828; color: #c8c8d0; }
+.forge-slot-tab:hover:not(.active) { background: #111120; }
+.forge-slot-tab-count {
+  font-size: 10px; color: #556688;
+  background: #1a1a2a; border: 1px solid #2a2a3a;
+  padding: 0 5px; line-height: 16px;
+}
+.forge-slot-tab.active .forge-slot-tab-count { color: #8899bb; border-color: #3a4a6a; }
+
+.forge-sort-btns { display: flex; gap: 4px; margin-right: 8px; }
+.forge-sort-btn {
+  padding: 2px 7px; font-size: 10px; font-family: inherit;
+  background: #12121a; border: 1px solid #2a2a3a; color: #6688aa; cursor: pointer;
+}
+.forge-sort-btn.active { border-color: #4466aa; color: #88aacc; background: #1a2030; }
+.forge-sort-btn:hover { background: #1a1a2a; }
+
+.forge-sell-btn {
+  padding: 3px 8px; font-size: 10px; font-family: inherit;
+  background: #1a1a12; border: 1px solid #4a4422; color: #aaa044; cursor: pointer;
+}
+.forge-sell-btn:hover { background: #252514; }
+
+/* 鍛冶モーダル */
+.forge-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+}
+.forge-modal {
+  background: #14141e;
+  border: 1px solid #3a3a5a;
+  padding: 20px 24px;
+  min-width: 260px; max-width: 340px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.forge-modal-title {
+  font-size: 15px; font-weight: bold; color: #c8c8d0;
+  border-bottom: 1px solid #2a2a3a; padding-bottom: 8px; margin-bottom: 2px;
+}
+.forge-modal-title.result-success { color: #66cc66; }
+.forge-modal-title.result-fail    { color: #cc8844; }
+.forge-modal-title.result-broken  { color: #cc3333; }
+
+.forge-modal-item    { font-size: 13px; color: #c8c8d0; }
+.forge-modal-preview { font-size: 11px; color: #6688aa; }
+.forge-modal-info    { font-size: 12px; color: #8899aa; }
+.forge-modal-danger  { color: #996644; font-size: 11px; }
+.forge-modal-warn    { color: #cc4444; }
+.forge-modal-sub     { font-size: 12px; color: #8899aa; }
+.forge-modal-body    { display: flex; flex-direction: column; gap: 6px; }
+.forge-modal-broken-body .forge-modal-sub { color: #cc8844; }
+
+.forge-modal-actions {
+  display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;
+}
+.forge-modal-ok {
+  padding: 5px 16px; font-size: 12px; font-family: inherit;
+  background: #1a2a1a; border: 1px solid #3a6a3a; color: #88cc88; cursor: pointer;
+}
+.forge-modal-ok:hover:not(:disabled) { background: #243424; }
+.forge-modal-ok:disabled { opacity: 0.4; cursor: not-allowed; }
+.forge-modal-sell-ok {
+  background: #1a1a12; border-color: #5a5422; color: #ccb044;
+}
+.forge-modal-sell-ok:hover { background: #252514; }
+.forge-modal-cancel {
+  padding: 5px 16px; font-size: 12px; font-family: inherit;
+  background: #1a1a2a; border: 1px solid #3a3a5a; color: #7788aa; cursor: pointer;
+}
+.forge-modal-cancel:hover { background: #22222e; }
+
+/* 装備タグバッジ */
+.equip-tag {
+  font-size: 9px; color: #887744; border: 1px solid #554422;
+  padding: 1px 4px; white-space: nowrap; flex-shrink: 0;
+}
+.forge-tag {
+  font-size: 9px; color: #887744; border: 1px solid #554422;
+  padding: 1px 4px; white-space: nowrap; flex-shrink: 0;
+}
+
+
+/* ============================================================
+   ダンジョン開始確認モーダル / 撤退確認モーダル
+   ============================================================ */
+.confirm-start-dialog {
+  max-width: 420px;
+  width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.confirm-dungeon-name {
+  font-size: 16px;
+  color: #c8c8d0;
+  font-weight: bold;
+  margin: 4px 0;
+}
+.confirm-dungeon-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: #6688aa;
+  margin-bottom: 8px;
+}
+.confirm-drop-section {
+  border: 1px solid #2a2a3a;
+  padding: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.confirm-drop-title {
+  font-size: 11px;
+  color: #6688aa;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.confirm-drop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.confirm-drop-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  padding: 2px 0;
+}
+.confirm-drop-row.known .confirm-drop-name { color: #c8c8d0; }
+.confirm-drop-row.unknown .confirm-drop-name { color: #445566; font-style: italic; }
+.confirm-drop-slot {
+  font-size: 9px;
+  color: #6688aa;
+  border: 1px solid #2a4a6a;
+  padding: 1px 4px;
+  white-space: nowrap;
+  min-width: 30px;
+  text-align: center;
+}
+.confirm-drop-source {
+  font-size: 9px;
+  color: #664422;
+  border: 1px solid #443322;
+  padding: 1px 4px;
+  white-space: nowrap;
+  margin-left: auto;
+}
+.confirm-retreat-rewards {
+  border: 1px solid #2a2a3a;
+  padding: 8px;
+  margin: 4px 0;
+}
+.confirm-retreat-gold { font-size: 12px; color: #aacc44; }
+.confirm-retreat-item { font-size: 11px; color: #c8c8d0; }
+.confirm-retreat-ok { background: #2a1a1a; border-color: #6a3333; color: #cc8888; }
+.confirm-retreat-ok:hover { background: #341e1e; }
+
+.confirm-level-warn {
+  background: #1e1200;
+  border: 1px solid #6a4400;
+  color: #cc9933;
+  font-size: 12px;
+  padding: 7px 10px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* ============================================================ */
+/* デバッグパネル（開発環境専用）                                   */
+/* ============================================================ */
+.debug-panel {
+  margin-top: 24px;
+  border: 1px solid #7a3a00;
+  background: #110800;
+}
+.debug-toggle {
+  width: 100%;
+  padding: 6px 12px;
+  background: #1a0d00;
+  border: none;
+  color: #cc7700;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  letter-spacing: 1px;
+}
+.debug-toggle:hover { background: #221100; }
+.debug-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.debug-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.debug-label {
+  font-size: 11px;
+  color: #886633;
+  width: 100px;
+  flex-shrink: 0;
+}
+.debug-group button {
+  padding: 3px 10px;
+  font-family: inherit;
+  font-size: 11px;
+  background: #1a1000;
+  border: 1px solid #5a3a00;
+  color: #cc9944;
+  cursor: pointer;
+}
+.debug-group button:hover { background: #2a1800; border-color: #8a5500; }
+.debug-group button.debug-danger { border-color: #6a2222; color: #cc5555; }
+.debug-group button.debug-danger:hover { background: #2a0a0a; }
+.debug-group button.debug-active { border-color: #446644; color: #66aa66; background: #0a140a; }
+
+/* ============================================================
+   装備ソートツールバー（編成画面）
+   ============================================================ */
+.equip-sort-toolbar {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0 8px;
+  flex-wrap: wrap;
+}
+.equip-sort-btn {
+  font-size: 11px;
+  padding: 2px 8px;
+  font-family: inherit;
+  background: #1e2028;
+  border: 1px solid #444;
+  border-radius: 3px;
+  color: #aaa;
+  cursor: pointer;
+}
+.equip-sort-btn:hover { background: #282c38; }
+.equip-sort-btn.active {
+  background: #1a2840;
+  border-color: #4a80c0;
+  color: #8ab4e0;
+}
+
+/* ============================================================
+   称号パネル
+   ============================================================ */
+.titles-panel {
+  padding: 16px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+.titles-count {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.titles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+}
+.title-row.unlocked {
+  border-color: #7a5500;
+  background: #161200;
+}
+.title-row.locked:not(.hidden-title) { opacity: 0.65; }
+.title-row.hidden-title { opacity: 0.35; }
+.title-desc {
+  font-size: 12px;
+  color: #888;
+  flex: 1;
+}
+.title-row.unlocked .title-desc { color: #ccb060; }
+.title-name-badge {
+  font-size: 11px;
+  font-weight: bold;
+  color: #ffd700;
+  background: #1a1200;
+  border: 1px solid #7a5500;
+  padding: 1px 7px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   オプションパネル
+   ============================================================ */
+.options-panel {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+.options-flash {
+  padding: 8px 12px;
+  background: #1a2a1a;
+  border: 1px solid #3a6a3a;
+  color: #88cc88;
+  font-size: 12px;
+  border-radius: 4px;
+  text-align: center;
+}
+.options-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.options-section-title {
+  font-size: 11px;
+  font-weight: bold;
+  color: #6688aa;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 0 6px;
+  border-bottom: 1px solid #2a2a3a;
+  margin-bottom: 6px;
+}
+.options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px solid #1e1e1e;
+}
+.options-row:last-child { border-bottom: none; }
+.options-row-info { flex: 1; }
+.options-row-label {
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 2px;
+}
+.options-row-desc {
+  font-size: 11px;
+  color: #666;
+}
+.options-btn {
+  padding: 5px 14px;
+  font-size: 12px;
+  font-family: inherit;
+  background: #1a2030;
+  border: 1px solid #3a4a60;
+  color: #88aacc;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.options-btn:hover { background: #202838; border-color: #5a7090; }
+.options-btn-danger {
+  background: #2a1a1a;
+  border-color: #6a3030;
+  color: #cc7777;
+}
+.options-btn-danger:hover { background: #381818; border-color: #8a4040; }
+.options-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  padding: 4px 4px;
+}
+.options-stat-label {
+  font-size: 12px;
+  color: #888;
+}
+.options-stat-val {
+  font-size: 12px;
+  color: #cccccc;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.options-license-toggle {
+  cursor: pointer;
+  user-select: none;
+}
+.options-license-toggle:hover { color: #88aacc; }
+.options-toggle-icon { font-size: 10px; margin-left: 4px; }
+.options-license-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 4px 4px;
+}
+.options-license-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 11px;
+}
+.options-license-name { color: #aabbcc; font-weight: bold; }
+.options-license-type {
+  color: #88aa88;
+  background: #1a2a1a;
+  border: 1px solid #2a4a2a;
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.options-license-copy { color: #666; }
+.options-restore-dialog { width: min(500px, 90vw); }
+.options-restore-desc { font-size: 12px; color: #888; margin-bottom: 8px; }
+.options-restore-textarea {
+  width: 100%;
+  height: 120px;
+  background: #111;
+  border: 1px solid #444;
+  color: #ccc;
+  font-size: 11px;
+  font-family: monospace;
+  padding: 8px;
+  resize: vertical;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+.options-restore-textarea:focus { outline: none; border-color: #4a80c0; }
+.options-restore-count { font-size: 11px; color: #666; text-align: right; margin-top: 4px; }
+
+
+/* 称号フィルタ */
+.titles-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+.titles-filter-btns { display: flex; gap: 4px; }
+.titles-filter-btn { padding: 3px 10px; background: #0d0d14; border: 1px solid #2a2a3a; color: #888; font-family: inherit; font-size: 12px; cursor: pointer; border-radius: 2px; }
+.titles-filter-btn:hover { border-color: #4a4a6a; color: #c8c8d0; }
+.titles-filter-btn.active { border-color: #d4a017; color: #d4a017; background: #1a1508; }
+
+/* 装備比較 */
+.equip-compare { display: inline-flex; gap: 4px; margin-left: 8px; }
+.equip-diff { font-size: 11px; font-weight: bold; padding: 1px 4px; border-radius: 2px; }
+.equip-diff.up   { color: #4cde6c; background: rgba(76,222,108,0.12); }
+.equip-diff.down { color: #e05555; background: rgba(224,85,85,0.12); }
+.equip-diff.same { color: #888; background: rgba(136,136,136,0.1); font-weight: normal; }
+.options-notif-granted { color: #4caf50; font-size: 13px; font-weight: bold; white-space: nowrap; }
+.options-notif-denied { color: #888; font-size: 12px; text-align: right; max-width: 160px; }
+.options-btn-off { background: #2a2035; color: #665588; }
+.options-speed-btns { display: flex; gap: 4px; flex-shrink: 0; }
+.options-speed-btn {
+  padding: 5px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #1a2030;
+  border: 1px solid #3a4a60;
+  color: #88aacc;
+  border-radius: 3px;
+  cursor: pointer;
+  min-width: 44px;
+}
+.options-speed-btn:hover:not(:disabled) { background: #202838; border-color: #5a7090; }
+.options-speed-btn.active { background: #0e2040; border-color: #4477bb; color: #aaccff; font-weight: bold; }
+.options-speed-btn:disabled { opacity: 0.3; cursor: default; }
+.options-speed-btns { display: flex; gap: 4px; flex-shrink: 0; }
+.options-speed-btn {
+  padding: 5px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #1a2030;
+  border: 1px solid #3a4a60;
+  color: #88aacc;
+  border-radius: 3px;
+  cursor: pointer;
+  min-width: 44px;
+}
+.options-speed-btn:hover:not(:disabled) { background: #202838; border-color: #5a7090; }
+.options-speed-btn.active { background: #0e2040; border-color: #4477bb; color: #aaccff; font-weight: bold; }
+.options-speed-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* ============================================================
+   バランスシミュレーションパネル
+   ============================================================ */
+.sim-panel { border-top: 1px solid #1e1e2e; }
+.sim-toggle-header { width: 100%; padding: 8px 12px; background: #0c0c18; border: none; color: #7090aa; font-family: inherit; font-size: 12px; cursor: pointer; text-align: left; }
+.sim-toggle-header:hover { color: #aabbcc; }
+
+.sim-body { padding: 12px; background: #080812; }
+
+/* 設定エリア */
+.sim-config { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.sim-config-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sim-config-label { font-size: 11px; color: #6688aa; white-space: nowrap; min-width: 80px; }
+.sim-class-selects { display: flex; gap: 4px; flex-wrap: wrap; }
+.sim-class-select, .sim-select { background: #0e0e1c; border: 1px solid #2a2a4a; color: #aaaacc; font-family: inherit; font-size: 11px; padding: 3px 6px; cursor: pointer; }
+.sim-class-select:focus, .sim-select:focus { outline: none; border-color: #4a6a8a; }
+.sim-run-btn { padding: 8px 20px; background: #1a3a2a; border: 1px solid #3a6a4a; color: #88dd99; font-family: inherit; font-size: 12px; cursor: pointer; margin-bottom: 12px; }
+.sim-run-btn:hover { background: #1e4a32; }
+.sim-run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* レポート */
+.sim-report { font-size: 12px; color: #c8c8d8; }
+.sim-report-title { font-size: 13px; color: #99bbdd; margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid #1e1e3a; padding-bottom: 6px; }
+.sim-report-sub { font-size: 11px; color: #5577aa; font-weight: normal; }
+
+/* ダンジョン行 */
+.sim-dungeon-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.sim-dungeon-row { border: 1px solid #1a1a2e; }
+.sim-dungeon-header { display: flex; align-items: center; gap: 8px; padding: 6px 10px; cursor: pointer; background: #0d0d1e; flex-wrap: wrap; }
+.sim-dungeon-header:hover { background: #111128; }
+.sim-dungeon-icon { font-size: 14px; font-weight: bold; min-width: 14px; }
+.sim-dungeon-name { font-size: 12px; color: #aabbdd; min-width: 110px; }
+.sim-dungeon-meta { font-size: 10px; color: #556677; flex: 1; }
+.sim-dungeon-stat { font-size: 11px; color: #8899aa; white-space: nowrap; }
+.sim-expand { font-size: 10px; color: #446688; margin-left: auto; }
+
+/* 周回詳細 */
+.sim-run-list { background: #09091a; border-top: 1px solid #1a1a2e; padding: 4px 0; }
+.sim-run-row { display: flex; gap: 10px; padding: 3px 12px; font-size: 11px; flex-wrap: wrap; }
+.sim-run-row.victory { color: #77bb99; }
+.sim-run-row.defeat  { color: #998877; }
+.sim-enh-log { color: #aa9944; font-size: 10px; }
+
+/* 時間サマリー */
+.sim-time-summary { font-size: 11px; color: #7799aa; border: 1px solid #1a2a3a; padding: 6px 10px; margin-bottom: 10px; background: #0b0b1c; }
+
+/* 最終パーティ */
+.sim-section-title { font-size: 12px; color: #8899bb; margin-bottom: 6px; border-bottom: 1px solid #1a1a2e; padding-bottom: 4px; }
+.sim-final-party { margin-bottom: 10px; }
+.sim-member-card { border: 1px solid #1a1a2e; padding: 6px 10px; margin-bottom: 4px; background: #0c0c1c; }
+.sim-member-header { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+.sim-member-name { font-weight: bold; color: #bbccdd; }
+.sim-member-class { font-size: 11px; color: #7788aa; }
+.sim-member-stats { font-size: 11px; color: #7799aa; }
+.sim-member-equips { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 3px; }
+.sim-equip-tag { font-size: 10px; padding: 1px 5px; background: #121228; border: 1px solid #2a2a4a; color: #9999bb; }
+.sim-no-equip { font-size: 10px; color: #445566; }
+.sim-member-skills { display: flex; gap: 4px; flex-wrap: wrap; }
+.sim-skill-tag { font-size: 10px; padding: 1px 5px; border: 1px solid #2a3a4a; }
+.sim-skill-tag.skill-type-attack  { color: #dd8866; border-color: #4a2a1a; background: #1a0e0a; }
+.sim-skill-tag.skill-type-heal    { color: #66bb77; border-color: #1a4a2a; background: #0a1a0e; }
+.sim-skill-tag.skill-type-buff    { color: #6699dd; border-color: #1a2a4a; background: #0a0e1a; }
+.sim-skill-tag.skill-type-debuff  { color: #cc77aa; border-color: #3a1a2a; background: #150a10; }
+
+/* スキル確認 */
+.sim-skills-section { margin-top: 8px; }
+.sim-toggle-btn { background: none; border: 1px solid #2a2a3a; color: #556677; font-family: inherit; font-size: 11px; padding: 3px 8px; cursor: pointer; }
+.sim-toggle-btn:hover { color: #7788aa; }
+.sim-skills-note { margin-top: 6px; padding: 8px; background: #0a0a18; border: 1px solid #1a1a2e; }
+.sim-note-info { color: #5a9; font-size: 11px; margin-bottom: 6px; }
+.sim-skills-line { font-size: 11px; color: #7788aa; padding: 2px 0; }
+
+
+/* ============================================================
+   図鑑パネル
+   ============================================================ */
+.enc-panel { display: flex; flex-direction: column; gap: 0; }
+
+.enc-tabs { display: flex; gap: 4px; padding: 8px 0; border-bottom: 1px solid #1e1e3a; margin-bottom: 8px; }
+.enc-tab-btn { padding: 5px 14px; background: #0d0d1e; border: 1px solid #2a2a3a; color: #6677aa; font-family: inherit; font-size: 12px; cursor: pointer; }
+.enc-tab-btn.active { background: #14142a; border-color: #5577bb; color: #aabbdd; }
+.enc-tab-btn:hover:not(.active) { color: #9999cc; }
+
+.enc-body { display: flex; flex-direction: column; gap: 10px; max-height: 520px; overflow-y: auto; padding-right: 4px; }
+
+/* デバッグバー */
+.enc-debug-bar { display: flex; justify-content: flex-end; padding-bottom: 4px; }
+.enc-debug-btn { padding: 3px 10px; background: #0a0a14; border: 1px solid #2a2a3a; color: #445566; font-family: inherit; font-size: 10px; cursor: pointer; }
+.enc-debug-btn:hover { color: #667788; border-color: #3a3a4a; }
+.enc-debug-btn.active { border-color: #446644; color: #66aa66; background: #0a140a; }
+
+/* 敵図鑑 — ダンジョングループ */
+.enc-dungeon-group { border: 1px solid #1a1a2e; }
+.enc-dungeon-group.locked { border-color: #141420; opacity: 0.6; }
+.enc-dungeon-group.unlocked { border-color: #1e1e38; }
+
+.enc-dungeon-header { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; background: #0c0c1e; width: 100%; border: none; font-family: inherit; text-align: left; }
+.enc-dungeon-group.locked  .enc-dungeon-header { background: #0a0a16; }
+.enc-dungeon-group.unlocked .enc-dungeon-header { background: #0e0e22; }
+.enc-dungeon-group.unlocked .enc-dungeon-header:hover { background: #111130; }
+.enc-dungeon-header-right { display: flex; align-items: center; gap: 8px; }
+.enc-collapse-icon { font-size: 10px; color: #4a5a7a; }
+.enc-dungeon-name { font-size: 12px; font-weight: bold; color: #6677aa; }
+.enc-dungeon-group.unlocked .enc-dungeon-name { color: #99aabb; }
+.enc-count { font-size: 11px; color: #3a4a55; font-weight: normal; }
+.enc-count.complete { color: #66aa77; }
+
+/* 敵行 */
+.enc-enemy-row { padding: 5px 14px; border-top: 1px solid #0f0f20; display: flex; flex-direction: column; gap: 3px; }
+.enc-enemy-row.known  { background: #0b0b1d; }
+.enc-enemy-row.unknown { background: #090914; }
+.enc-boss-row { border-top: 2px solid #221530 !important; }
+.enc-boss-row.known   { background: #0d0a18; }
+.enc-boss-row.unknown { background: #0a0814; }
+
+.enc-enemy-main { display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+.enc-enemy-info { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.enc-enemy-nameline { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.enc-enemy-statline { display: flex; gap: 8px; flex-wrap: wrap; font-size: 11px; color: #4a6688; }
+
+/* 解禁済み（撃破済み）は明るく */
+.enc-enemy-row.known  .enc-enemy-name { font-size: 12px; color: #bbccdd; }
+.enc-enemy-row.known  .enc-enemy-stats { font-size: 11px; color: #5577aa; margin-left: auto; }
+/* 未撃破はくすんだ色 */
+.enc-enemy-row.unknown .enc-enemy-name { font-size: 12px; color: #334455; font-style: italic; }
+
+/* フロア範囲バッジ */
+.enc-floor-badge { font-size: 10px; padding: 1px 5px; background: #0c1225; border: 1px solid #1a2a4a; color: #4a7aaa; white-space: nowrap; }
+
+/* スキル持ちバッジ */
+.enc-skill-badge { font-size: 10px; padding: 1px 5px; background: #150e28; border: 1px solid #3a2860; color: #9977cc; white-space: nowrap; }
+
+/* ドロップアイテム */
+.enc-drop-list { display: flex; flex-direction: column; gap: 2px; padding: 3px 0 1px; }
+.enc-drop-row { display: flex; align-items: center; gap: 6px; padding: 1px 0; }
+.enc-drop-label { font-size: 9px; font-weight: bold; color: #aa8833; background: #1a1200; border: 1px solid #4a3300; padding: 1px 4px; flex-shrink: 0; }
+.enc-drop-name { font-size: 11px; color: #ccaa66; }
+.enc-drop-chance { font-size: 10px; color: #886633; margin-left: auto; }
+
+/* ============================================================
+   タイトル画面
+   ============================================================ */
+.title-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #0a0b12;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  cursor: pointer;
+}
+.title-screen.title-visible { opacity: 1; }
+
+.title-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(60, 40, 120, 0.5) 0%, transparent 70%),
+    radial-gradient(ellipse at 20% 80%, rgba(20, 60, 100, 0.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.title-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.title-logo {
+  text-align: center;
+  line-height: 1.1;
+}
+.title-logo-img {
+  width: min(480px, 80vw);
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 40px rgba(160, 120, 255, 0.5));
+}
+.title-logo-sub {
+  font-size: 14px;
+  letter-spacing: 0.4em;
+  color: #9988cc;
+  margin-bottom: 8px;
+}
+.title-logo-main {
+  font-size: clamp(52px, 12vw, 96px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #e8deff;
+  text-shadow:
+    0 0 40px rgba(160, 120, 255, 0.6),
+    0 0 80px rgba(100, 60, 200, 0.3);
+}
+.title-logo-tagline {
+  font-size: 16px;
+  letter-spacing: 0.3em;
+  color: #7766aa;
+  margin-top: 10px;
+}
+
+.title-tap-hint {
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  color: #9977cc;
+  animation: title-pulse 2s ease-in-out infinite;
+}
+@keyframes title-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1;   }
+}
+
+.title-footer {
+  font-size: 11px;
+  color: #44405a;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   ストーリーシーン
+   ============================================================ */
+.story-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+}
+
+.story-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.story-bg-loaded { opacity: 1; }
+
+.story-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%);
+}
+
+.story-textbox {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, calc(100% - 32px));
+  background: rgba(8, 10, 20, 0.82);
+  border: 1px solid rgba(120, 100, 200, 0.4);
+  border-radius: 8px;
+  padding: 20px 24px 16px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(4px);
+}
+.story-text-visible { opacity: 1; }
+
+.story-chapter-title {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #9977cc;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.story-text p {
+  margin: 0 0 6px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #ddd8f0;
+}
+
+.story-advance-hint {
+  text-align: right;
+  font-size: 11px;
+  color: #665588;
+  margin-top: 10px;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+.story-hint-typing { color: #443366; }
+
+/* 次へ▼インジケーター */
+.story-next-indicator {
+  position: absolute;
+  bottom: 68px;
+  right: 20px;
+  font-size: 14px;
+  color: rgba(180, 140, 255, 0.7);
+  animation: story-bounce 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes story-bounce {
+  0%, 100% { transform: translateY(0);   opacity: 0.5; }
+  50%       { transform: translateY(4px); opacity: 1;   }
+}
+
+.story-skip-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(20, 16, 36, 0.7);
+  border: 1px solid rgba(120, 100, 200, 0.4);
+  color: #8877aa;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(4px);
+}
+.story-skip-btn:hover { color: #ccaaff; border-color: rgba(180, 140, 255, 0.6); }
+
+/* ============================================================
+   画面遷移フェード / ローディング
+   ============================================================ */
+.screen-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: #0a0b12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.screen-loading-overlay.screen-loading-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.screen-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(140, 100, 220, 0.2);
+  border-top-color: rgba(180, 140, 255, 0.9);
+  border-radius: 50%;
+  animation: screen-spin 0.75s linear infinite;
+}
+
+@keyframes screen-spin {
+  to { transform: rotate(360deg); }
+}
+
+.enc-boss-badge { font-size: 10px; padding: 1px 5px; background: #1e0e2a; border: 1px solid #442255; color: #aa77bb; font-weight: bold; }
+.enc-boss-row.known .enc-boss-badge { color: #cc88dd; border-color: #663388; }
+
+.enc-skill-list { padding: 4px 0 2px 8px; display: flex; flex-direction: column; gap: 3px; }
+.enc-skill-row { display: flex; gap: 8px; flex-wrap: wrap; font-size: 10px; }
+.enc-skill-name { color: #9988cc; min-width: 100px; }
+.enc-skill-desc { color: #445566; }
+
+/* ドロップリスト */
+.enc-drop-list { padding: 4px 0 2px 8px; display: flex; flex-direction: column; gap: 3px; }
+.enc-drop-row  { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+.enc-drop-name { color: #8899aa; }
+
+/* レア度バッジ */
+.enc-rarity-badge { font-size: 10px; padding: 1px 5px; font-weight: bold; border: 1px solid; }
+.enc-rarity-badge.rarity-common   { color: #667788; border-color: #2a3a44; background: #0c1218; }
+.enc-rarity-badge.rarity-uncommon { color: #55aa77; border-color: #1a4a2a; background: #0a1810; }
+.enc-rarity-badge.rarity-rare     { color: #5588cc; border-color: #1a2a5a; background: #0a0e1e; }
+.enc-rarity-badge.rarity-super    { color: #cc9933; border-color: #4a3300; background: #180f00; }
+
+/* 装備図鑑 */
+.enc-equip-filter { display: flex; gap: 4px; margin-bottom: 8px; }
+.enc-filter-btn { padding: 4px 12px; background: #0d0d1e; border: 1px solid #2a2a3a; color: #6677aa; font-family: inherit; font-size: 11px; cursor: pointer; }
+.enc-filter-btn.active { background: #14142a; border-color: #5577bb; color: #aabbdd; }
+.enc-filter-btn:hover:not(.active) { color: #9999cc; }
+
+/* 解禁済み装備は明るく、未入手はくすんだ色 */
+.enc-equip-row { border: 1px solid #1a1a2e; padding: 7px 12px; display: flex; flex-direction: column; gap: 4px; }
+.enc-equip-row.known   { background: #0c0c1e; border-color: #1e1e38; }
+.enc-equip-row.unknown { background: #090912; border-color: #131320; opacity: 0.55; }
+
+.enc-equip-main { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.enc-equip-icon { border-radius: 3px; flex-shrink: 0; }
+.enc-equip-name         { font-size: 12px; color: #bbccdd; }
+.enc-equip-name.unknown-name { color: #334455; font-style: italic; }
+
+.enc-slot-badge { font-size: 10px; padding: 1px 5px; border: 1px solid #2a2a4a; color: #6677aa; background: #0d0d1e; }
+.enc-equip-row.unknown .enc-slot-badge { color: #3a4455; border-color: #1e1e30; }
+
+.enc-tag { font-size: 10px; padding: 1px 5px; border: 1px solid #2a3a4a; color: #8899aa; background: #0d1020; }
+.enc-tag.senri     { border-color: #4a3000; color: #cc9933; background: #1a1000; }
+.enc-tag.hishou    { border-color: #1a3a2a; color: #55aa77; background: #0a1810; }
+.enc-tag.enc-boss-only { border-color: #5a1a4a; color: #cc55aa; background: #1a0818; }
+
+.enc-equip-stats { font-size: 11px; color: #6688aa; }
+.enc-equip-effects { display: flex; gap: 4px; flex-wrap: wrap; }
+.enc-effect-chip { font-size: 10px; padding: 1px 6px; background: #10102a; border: 1px solid #35356a; color: #9999cc; }
+.enc-equip-desc { font-size: 10px; color: #445566; font-style: italic; }
+
+/* ============================================================
+   称号獲得通知モーダル
+   ============================================================ */
+.title-notif-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+.title-notif-dialog {
+  background: #0d0d1a;
+  border: 2px solid #6a50aa;
+  padding: 28px 36px;
+  min-width: 300px;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(100, 60, 200, 0.5);
+  animation: titleSlideIn 0.3s ease;
+}
+@keyframes titleSlideIn {
+  from { transform: translateY(-24px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+.title-notif-header {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #9a80cc;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.title-notif-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.title-notif-item {
+  border: 1px solid #3a2a5a;
+  padding: 12px 16px;
+  background: #12122a;
+}
+.title-notif-name {
+  font-size: 20px;
+  color: #e0d090;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.title-notif-desc {
+  font-size: 11px;
+  color: #8888aa;
+}
+.title-notif-close {
+  padding: 8px 32px;
+  background: #2a1a4a;
+  border: 1px solid #6a50aa;
+  color: #c0a8f0;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.title-notif-close:hover { background: #3a2a6a; }
+
+/* ========== 召喚ユニット ========== */
+.combat-summon-portrait {
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8)) drop-shadow(0 0 8px rgba(160,120,255,0.5));
+}
+
+.exp-summon-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+  border-left: 2px solid #5a3a9a;
+  padding-left: 8px;
+}
+
+.exp-summon-row {
+  border: 1px solid #3a2a5a;
+  padding: 6px 8px;
+  background: #0e0a18;
+  transition: opacity 0.3s;
+}
+
+.exp-summon-row.dead {
+  opacity: 0.35;
+}
+
+.summon-badge {
+  font-size: 9px;
+  padding: 1px 5px;
+  background: #2a1a4a;
+  border: 1px solid #5a3a9a;
+  color: #aa88ff;
+  white-space: nowrap;
+}
+
+.summon-icon {
+  border-color: #5a3a9a !important;
+}
+
+.debug-summon-btn {
+  padding: 4px 10px;
+  background: #1a0a2a;
+  border: 1px solid #5a3a9a;
+  color: #aa88ff;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.debug-summon-btn:hover { background: #2a1a4a; }
+
+/* ========== スマホ対応 ========== */
+@media (max-width: 640px) {
+  /* 戦闘シーン：高さを縮小、ポートレートは flex で均等縮小 */
+  .combat-scene {
+    height: 160px;
+  }
+  .combat-char-portrait,
+  .combat-enemy-portrait {
+    height: 80px;
+    max-width: 72px;
+  }
+  /* ログ */
+  .log-list {
+    max-height: 100px;
+  }
+
+  /* 敵・味方ステータスは横並びのまま維持（縦積みにしない）
+     flex: 1 + min-width: 0 で各カラムが溢れずに収まる */
+  .expedition-columns {
+    gap: 8px;
+  }
+  .expedition-left,
+  .expedition-right {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* ステータス内のテキストを少し小さく */
+  .exp-member-name,
+  .exp-member-stance,
+  .exp-enemy-name,
+  .exp-enemy-hp {
+    font-size: 10px;
+  }
+  .exp-bar-num {
+    font-size: 9px;
+  }
+  .exp-bar-label {
+    font-size: 9px;
+    width: 14px;
+  }
+
+  /* スタンスボタンを折り返し */
+  .exp-stance-row {
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .exp-stance-btn {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  /* ヘッダー */
+  .expedition-title {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  /* パーティアイコン縮小 */
+  .member-char-icon {
+    width: 22px;
+    height: 22px;
+  }
+  .member-enemy-icon {
+    width: 28px;
+    height: 28px;
+  }
+}

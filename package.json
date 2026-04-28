@@ -1,0 +1,29 @@
+{
+  "name": "dungeon-explorer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "remove-bg": "node scripts/remove-bg.mjs",
+    "gen-icons": "node scripts/gen-icons.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5",
+    "vite-plugin-pwa": "^1.2.0"
+  }
+}

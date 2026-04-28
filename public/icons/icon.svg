@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 背景 -->
+  <rect width="512" height="512" rx="96" fill="#0f0f23"/>
+  <!-- 外枠装飾 -->
+  <rect x="12" y="12" width="488" height="488" rx="84" fill="none" stroke="#4c1d95" stroke-width="8"/>
+  <!-- 剣（縦） -->
+  <rect x="244" y="80" width="24" height="240" rx="4" fill="#a78bfa"/>
+  <!-- 剣のつば -->
+  <rect x="196" y="276" width="120" height="20" rx="6" fill="#7c3aed"/>
+  <!-- 柄 -->
+  <rect x="248" y="296" width="16" height="80" rx="4" fill="#6d28d9"/>
+  <!-- 剣先 -->
+  <polygon points="256,60 244,100 268,100" fill="#c4b5fd"/>
+  <!-- 盾（左下） -->
+  <path d="M80 350 L80 420 Q80 450 110 460 L140 470 L170 460 Q200 450 200 420 L200 350 Z" fill="#1e1b4b" stroke="#7c3aed" stroke-width="4"/>
+  <path d="M140 365 L155 380 L140 445 L125 380 Z" fill="#a78bfa"/>
+  <!-- 星（右上） -->
+  <polygon points="390,80 400,110 432,110 407,128 417,158 390,140 363,158 373,128 348,110 380,110"
+           fill="#f59e0b"/>
+  <!-- ダンジョンのアーチ（下部） -->
+  <path d="M150 480 Q150 380 256 380 Q362 380 362 480" fill="#1e1b4b" stroke="#4c1d95" stroke-width="6"/>
+  <rect x="150" y="430" width="212" height="50" fill="#1e1b4b"/>
+</svg>
